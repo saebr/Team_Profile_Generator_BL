@@ -102,17 +102,17 @@ const createIntern = () => {
     })
 };
 
-const nextemployee = () => {
+const nextEmployee = () => {
     inquirer.prompt(
         {
-            name: 'ofo',
+            name: 'foo',
             type: 'list',
             message: 'What role would you like to add next?',
             choices: ['create engineer', 'create intern', 'finish']
         }
     )
     .then(answers => {
-        const choice = answer.foo
+        const choice = answers.foo
         switch (choice) {
             case 'create engineer' :
                 return createEngineer();
@@ -121,10 +121,19 @@ const nextemployee = () => {
                 return createIntern();
             
             case 'finish' :
-                return render(allEmployees)
+                return fs.writeFile(outputPath, render(allEmployees), err => {
+                    if (err) {
+                      console.error(err)
+                      return
+                    }
+                })
         }
     })
 };
+
+createManager()
+
+
 
 
 
